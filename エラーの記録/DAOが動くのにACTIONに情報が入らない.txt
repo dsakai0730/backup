@@ -1,0 +1,6 @@
+DAOでDTOを参照すると値の格納を確認できるのに
+ACTIONでDTOを参照すると格納を確認できない
+
+原因　ACTIONクラス内でDTOとDAOが紐付けられていないことが原因
+誤　loginDAO.getUserInfo()
+正　login DTO = loginDAO.getUserInfo()

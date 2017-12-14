@@ -1,0 +1,52 @@
+ホームページにアクセスするとまずweb.xmlにつながる
+web.xml => jsp  *jsp(java server pages) = 画面を作るためのファイル
+最初の画面からの処理をstruts2で行う
+ログインに必要なプログラム => 入力された情報が正しいか判断 等々、動きのある処理をstrutsやjavaで行う
+struts.xmlは画面が切り替わった時(jsp)にどうコントロールするか仲介を行う
+Actionクラスはstrutsとのやりとりすべての動きを束ねる
+基本は　jsp <=> sturuts.xml <=>Actionのやりとり
+DAO(Data Access Object)はデータベースにアクセスしデータのやり取りを行う
+Action <=> DAO <=> DB
+DTO(Deta Transfer Object)は多種で大量のデータをまとめてやり取りするために格納するもの
+
+jarファイル　大量のjavaファイルが格納されている
+
+===web.xml===
+
+web.xmlの上数行はjavaでwebサイトを作るためのテンプレート　変える必要なし
+
+display-nameは動的webプロジェクトの名前 = ホームページの名前
+
+welcome-fileはホームページの最初に表示される画面のjspファイル
+
+filter のブロックはstruts2を使うための書き方　テンプレなので変える必要なし
+
+
+===jsp===
+
+最初の1行はjspを書くための宣言
+
+2行目はsタグ(strutsタグ)を使うための宣言
+
+<s:form>入力された情報をactionのクラスに投げる
+<s:textfield>ボックスを作成　nameで名前をつける
+<s:password>　入力された文字を隠すボックスを作成
+<s:submit>
+
+===struts.xml===
+上の数行はstrutsを書くための宣言　テンプレ
+
+<package>
+これから行うactionファイルの場所
+
+パッケージの名前の書き方
+①ドメインを逆にして書く
+internousdev.com => com.internousdev
+internous.co.jp => jp.co.internous
+②プロジェクトの名前を書く
+③行うファイルの種類の名前（action,dao,dto)
+
+<action>
+<name>=Actionのキーワード
+<class>Actionクラスの場所
+<method>Actionクラスの中で行うメソッド

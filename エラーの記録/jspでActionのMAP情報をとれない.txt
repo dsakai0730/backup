@@ -1,0 +1,4 @@
+JSPにで<s:property>でsessionの情報をとれない
+
+原因①　ActionクラスのMapフィールドがprivateになっていたため。
+原因②	関連したActionクラスにsessionが設定されていないため。

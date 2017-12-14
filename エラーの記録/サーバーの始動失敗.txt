@@ -1,0 +1,43 @@
+
+===症状①===
+サーバー ローカル・ホスト の Tomcat8 (Java8) は始動に失敗しました。
+
+情報: Server version:        Apache Tomcat/8.0.32 [木 12 07 16:18:41 JST 2017]
+情報: Server built:          Feb 2 2016 19:34:53 UTC [木 12 07 16:18:41 JST 2017]
+情報: Server number:         8.0.32.0 [木 12 07 16:18:41 JST 2017]
+情報: OS Name:               Windows 7 [木 12 07 16:18:41 JST 2017]
+情報: OS Version:            6.1 [木 12 07 16:18:41 JST 2017]
+情報: Architecture:          amd64 [木 12 07 16:18:41 JST 2017]
+情報: Java Home:             C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\java\8\jre [木 12 07 16:18:41 JST 2017]
+情報: JVM Version:           1.8.0_74-b02 [木 12 07 16:18:41 JST 2017]
+情報: JVM Vendor:            Oracle Corporation [木 12 07 16:18:41 JST 2017]
+情報: CATALINA_BASE:         C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0 [木 12 07 16:18:41 JST 2017]
+情報: CATALINA_HOME:         C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\tomcat\8 [木 12 07 16:18:41 JST 2017]
+情報: Command line argument: -Dcatalina.base=C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0 [木 12 07 16:18:41 JST 2017]
+情報: Command line argument: -Dcatalina.home=C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\tomcat\8 [木 12 07 16:18:41 JST 2017]
+情報: Command line argument: -Dwtp.deploy=C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps [木 12 07 16:18:41 JST 2017]
+情報: Command line argument: -Djava.endorsed.dirs=C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\tomcat\8\endorsed [木 12 07 16:18:41 JST 2017]
+情報: Command line argument: -Dfile.encoding=UTF-8 [木 12 07 16:18:41 JST 2017]
+情報: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\java\8\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Users/internousdev/pleiades-e4.5-java-jre_20160312/pleiades/eclipse/jre/bin/../jre/bin/server;C:/Users/internousdev/pleiades-e4.5-java-jre_20160312/pleiades/eclipse/jre/bin/../jre/bin;C:/Users/internousdev/pleiades-e4.5-java-jre_20160312/pleiades/eclipse/jre/bin/../jre/lib/amd64;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files\Java\jdk1.8.0_92\bin;%APACHE_HOME%\bin;C:\eclipse\pleiades\tomcat\9\bin;C:\Program Files\MongoDB\Server\3.2\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\MongoDB\Server\3.2\bin;C:\Program Files (x86)\Brackets\command;C:\Users\internousdev\pleiades-e4.5-java-jre_20160312\pleiades\eclipse;;. [木 12 07 16:18:41 JST 2017]
+情報: Initializing ProtocolHandler ["http-nio-8080"] [木 12 07 16:18:41 JST 2017]
+情報: Using a shared selector for servlet write/read [木 12 07 16:18:41 JST 2017]
+情報: Initializing ProtocolHandler ["ajp-nio-8009"] [木 12 07 16:18:41 JST 2017]
+情報: Using a shared selector for servlet write/read [木 12 07 16:18:41 JST 2017]
+情報: Initialization processed in 1106 ms [木 12 07 16:18:41 JST 2017]
+情報: サービス Catalina を起動します [木 12 07 16:18:41 JST 2017]
+情報: Starting Servlet Engine: Apache Tomcat/8.0.32 [木 12 07 16:18:41 JST 2017]
+重大: A child container failed during start [木 12 07 16:18:43 JST 2017]
+重大: A child container failed during start [木 12 07 16:18:43 JST 2017]
+重大: The required Server component failed to start so Tomcat is unable to start. [木 12 07 16:18:43 JST 2017]
+情報: Pausing ProtocolHandler ["http-nio-8080"] [木 12 07 16:18:43 JST 2017]
+情報: Pausing ProtocolHandler ["ajp-nio-8009"] [木 12 07 16:18:43 JST 2017]
+情報: サービス Catalina を停止します [木 12 07 16:18:43 JST 2017]
+情報: Destroying ProtocolHandler ["http-nio-8080"] [木 12 07 16:18:43 JST 2017]
+重大: Failed to destroy end point associated with ProtocolHandler ["http-nio-8080"] [木 12 07 16:18:43 JST 2017]
+情報: Destroying ProtocolHandler ["ajp-nio-8009"] [木 12 07 16:18:43 JST 2017]
+重大: Failed to destroy end point associated with ProtocolHandler ["ajp-nio-8009"] [木 12 07 16:18:43 JST 2017]
+
+===原因===
+web.xmlの記述間違い
+正<url-pattern>/*</url-pattern>
+誤<url-pattern>*/</url-pattern>
