@@ -28,3 +28,15 @@ item_search_word varchar(255),
 insert_date datetime,
 updated_date datetime
 );
+
+create table already_read(
+user_id varchar(16),
+book_id varchar(16),
+book_img varchar(255),
+book_title varchar(255),
+book_author varchar(255),
+book_published_date varchar(255),
+book_description varchar(255),
+insert_date datetime,
+updated_date datetime
+);

@@ -9,7 +9,7 @@
 <title>LOGIN</title>
 </head>
 <body>
-	<header><a href='<s:url action="GoHomeAction" />'>project1</a>
+	<header><a href='<s:url action="GoHomeAction" />'>FavBooks</a>
 		<ul>
 			<li>ゲストさん</li>
 			<li><a href = '<s:url action = "GoHomeAction" />' >ホーム</a></li>
@@ -45,7 +45,7 @@
 				</table>
 			</s:form>
 		</div>
+		<footer>copyright daichi sakai</footer>
 	</div>
-	<footer>copyright daichi sakai</footer>
 </body>
 </html>

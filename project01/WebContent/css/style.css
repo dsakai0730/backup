@@ -61,6 +61,9 @@ header ul li a:hover{
 }
 
 header ul li a:ACTIVE{
+	position:relative;
+	top: 2px;
+	left: 2px;
 	box-shadow: none;
 }
 
@@ -86,15 +89,28 @@ h1{
              -1px -1px 0.5px #000;
 }
 
-#search-form input{
+#search-box{
 	border: 0;
 	padding: 10px;
 	font-size: 1.3em;
 	font-family: Arial, sans-serif;
 	color: #aaa;
 	border: solid 1px #ccc;
-	margin: 0 0 20px;
+	margin: 0 auto;
 	width: 300px;
+}
+
+.wwFormTable {
+	margin: 0 auto;
+	width:80px;
+	height:30px;
+}
+
+.wwFormTable #SearchBookAction_0{
+	float:right;
+	width:80px;
+	height:30px;
+	font-family: Arial, sans-serif;
 }
 
 #content{
@@ -122,17 +138,125 @@ h1{
 	border: solid 1px #819aa8;
 }
 
-table{
-	margin: 0 auto;
-}
-
 #error-message{
 	text-align: center;
 	color: red;
 }
 
+#book{
+	width: 800px;
+	height: 300px;
+	margin: 0 auto;
+	margin-top: -1px;
+	border: solid 1px #ccc;
+}
+
+#book-img{
+	text-align: left;
+	width: 160px;
+}
+
+#book-info {
+	text-align: left;
+	width: 640px;
+}
+
+#check-btn{
+	float:right;
+	margin:5px;
+	height: 30px;
+	width: 60px;
+	background-color: #00e1ff;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px 1px #406a70;
+	font-family: Verdana, sans-serif;
+	color: #074f59;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	text-decoration: none;
+}
+
+#check-btn:hover{
+	cursor:pointer;
+	opacity: 0.8;
+}
+
+#check-btn:ACTIVE{
+	position: relative;
+	top: 1px;
+	left: 1px;
+	box-shadow: none;
+}
+
+#read{
+	float:left;
+	margin:5px;
+	height: 30px;
+	width: 120px;
+	background-color: #ffea00;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px 1px #406a70;
+	font-family: Verdana, sans-serif;
+	color: #074f59;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	text-decoration: none;
+}
+
+#read:hover{
+	cursor:pointer;
+	opacity: 0.8;
+}
+
+#read:ACTIVE{
+	position: relative;
+	top: 1px;
+	left: 1px;
+	box-shadow: none;
+}
+
+#read-off{
+	float:left;
+	margin:5px;
+	height: 30px;
+	width: 120px;
+	background-color: #6f8ce3;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px 1px #406a70;
+	font-family: Verdana, sans-serif;
+	color: #fff;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	text-decoration: none;
+}
+
+#read-off:hover{
+	cursor:pointer;
+	opacity: 0.8;
+}
+
+#read-off:ACTIVE{
+	position: relative;
+	top: 1px;
+	left: 1px;
+	box-shadow: none;
+}
+
+
+#des{
+	font-size: 12px;
+}
+
 footer{
 	position:relative;
-	bottom: 0px;
-	left: 10px;
+	text-align: center;
 }

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header>
-		<a href='<s:url action="GoHomeAction" />'>project1</a>
+		<a href='<s:url action="GoHomeAction" />'>FavBooks</a>
 	</header>
 	<div id="main">
 		<div id="content">

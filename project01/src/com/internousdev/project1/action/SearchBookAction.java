@@ -14,11 +14,12 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.internousdev.project1.dto.SearchBookDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class SearchBookAction extends ActionSupport implements SessionAware{
 
-	private String id;
+	private String bookId;
 	private String img;
 	private String title;
 	private List<String> authorsList = new ArrayList<String>();
@@ -26,6 +27,9 @@ public class SearchBookAction extends ActionSupport implements SessionAware{
 	private String description;
 	private String searchWord;
 	public Map<String, Object> session;
+	public List<SearchBookDTO> searchBookDTOList = new ArrayList<SearchBookDTO>();
+	private String bookErrorMessage ;
+
 
 	public String execute() throws IOException{
 		String ret = SUCCESS;
@@ -40,42 +44,59 @@ public class SearchBookAction extends ActionSupport implements SessionAware{
 		try{
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode root = mapper.readTree(contents);
-			id = root.get("items").get(0).get("id").asText();
-			img = root.get("items").get(0).get("volumeInfo").get("imageLinks").get("smallThumbnail").asText();
-			title = root.get("items").get(0).get("volumeInfo").get("title").asText();
 
-			JsonNode authors = root.get("items").get(0).get("volumeInfo").get("authors");
 
-			for(int i=0; i<authors.size(); i++){
-				authorsList.add(authors.get(i).asText());
+
+			JsonNode items = root.get("items");
+
+			for(int i=0; i<items.size(); i++) {
+				SearchBookDTO dto = new SearchBookDTO();
+				bookId = root.get("items").get(i).get("id").asText();
+				title = root.get("items").get(i).get("volumeInfo").get("title").asText();
+				img = root.get("items").get(i).get("volumeInfo").get("imageLinks").get("smallThumbnail").asText();
+
+				JsonNode authors = root.get("items").get(i).get("volumeInfo").get("authors");
+
+				List<String> autli = new ArrayList<>();
+				for(int j=0; j<authors.size(); j++){
+					String aut = new String();
+					aut = authors.get(j).asText();
+					autli.add(aut);
+					}
+
+
+				publishedDate = root.get("items").get(i).get("volumeInfo").get("publishedDate").asText();
+				description = root.get("items").get(i).get("volumeInfo").get("description").asText();
+
+				dto.setBookId(bookId);
+				dto.setTitle(title);
+				dto.setImg(img);
+				dto.setAuthorsList(autli);
+				dto.setPublishedDate(publishedDate);
+				dto.setDescription(description);
+
+				searchBookDTOList.add(dto);
 			}
-
-			description = root.get("items").get(0).get("volumeInfo").get("description").asText();
-			publishedDate = root.get("items").get(0).get("volumeInfo").get("publishedDate").asText();
-			
-			
-
-			session.put("id", id);
-			session.put("img", img);
-			session.put("title", title);
-			session.put("authorsList", authorsList);
-			session.put("publishedDate", publishedDate);
-			session.put("description", description);
+			session.put("searchBookDTOList", searchBookDTOList);
 
 
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 
+		if(is==null){
+			ret = ERROR;
+			setBookErrorMessage("検索結果がありません");
+		}
 		return ret;
 	}
 
-	public String getId() {
-		return id;
+	public String getBookId() {
+		return bookId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
 	}
 
 	public String getImg() {
@@ -129,6 +150,16 @@ public class SearchBookAction extends ActionSupport implements SessionAware{
 
 	public void setPublishedDate(String publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+
+
+	public String getBookErrorMessage() {
+		return bookErrorMessage;
+	}
+
+	public void setBookErrorMessage(String bookErrorMessage) {
+		this.bookErrorMessage = bookErrorMessage;
 	}
 
 	@Override

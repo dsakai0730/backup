@@ -8,7 +8,7 @@
 <title>ユーザー登録確認</title>
 </head>
 <body>
-	<header>priject1</header>
+	<header><a href='<s:url action="GoHomeAction" />'>FavBooks</a></header>
 	<div id="main">
 		<h3>以下の内容で登録します。</h3>
 		<div>

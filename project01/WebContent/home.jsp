@@ -9,7 +9,7 @@
 <title>HOME</title>
 </head>
 <body>
-	<header><a href='<s:url action="GoHomeAction" />'>project1</a>
+	<header><a href='<s:url action="GoHomeAction" />'>FavBooks</a>
 		<s:if test="session == null">
 		<ul>
 			<li>ゲストさん</li>
@@ -35,29 +35,45 @@
 	<div id="main">
 		<div id="search-form">
 			<h1>Search Books!</h1>
-			<div id="search-box">
 				<s:form action="SearchBookAction">
-					<input type="text" name="searchWord" />
-					<s:submit value="検索" />
+						<input id ="search-box" type="text" name="searchWord" placeholder="タイトル/著者"/>
+						<s:submit value="検索" />
 				</s:form>
-			</div>
+
 			<br>
-			<s:if test="session.id != null">
-				
-					<img src="<s:property value="session.img" />" />
-					<ul>
-					<li>タイトル:<s:property value="session.title" /></li>
-					<li>著者:
-					<s:iterator value="authorsList">
-						<s:property />
-					</s:iterator>
-					</li>
-					<li>出版日:<s:property value="session.publishedDate" /></li>
-					<li>説明:<s:property value="session.description" /></li>
-					</ul>
+			<s:if test="bookErrorMessage != '' ">
+				<s:property value="bookErrorMessage" />
+			</s:if>
+			<s:if test="session != null">
+				<s:iterator value="session.searchBookDTOList" status="st">
+					<s:form action="CheckAction">
+						<table id="book">
+							<tbody>
+							<tr >
+								<td id="book-img">
+									<img src="<s:property value="img" />" width="128">
+								</td>
+								<td id="book-info">
+									<p id="book-title">タイトル:&nbsp;<s:property value="title"/></p>
+											<p>著者:&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;<s:iterator value="authorsList">
+												<s:property />
+											</s:iterator></p>
+											<p>発刊日:&nbsp;&nbsp;<s:property value="publishedDate" /></p>
+											説明:<div id="des"><s:property value="description"/></div>
+									<div id="card-back">
+									</div>
+									<br>
+									<a id="check-btn" href='<s:url action="CheckAction"><s:param name="checkNum" value="#st.index" /></s:url>' >check!</a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</s:form>
+				</s:iterator>
 			</s:if>
 		</div>
-	</div>
+	<br>
 	<footer>copyright daichi sakai</footer>
+	</div>
 </body>
 </html>

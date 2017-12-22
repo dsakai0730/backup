@@ -9,7 +9,7 @@
 <title>MYPAGE</title>
 </head>
 <body>
-	<header>project1
+	<header>FavBooks
 		<ul>
 			<li><s:property value="session.userName" />さん</li>
 			<li><a href = '<s:url action = "GoHomeAction" />' >ホーム</a></li>
