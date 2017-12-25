@@ -24,7 +24,7 @@ item_name varchar(50),
 item_price int,
 item_count int,
 item_total_price int,
-item_search_word varchar(255),
+item_search_word varchar(1000),
 insert_date datetime,
 updated_date datetime
 );
@@ -36,7 +36,15 @@ book_img varchar(255),
 book_title varchar(255),
 book_author varchar(255),
 book_published_date varchar(255),
-book_description varchar(255),
+book_description varchar(1000),
+insert_date datetime,
+updated_date datetime
+);
+
+create table follow_list(
+user_id varchar(16),
+followed_user_id varchar(16),
+followed_user_name varchar(16),
 insert_date datetime,
 updated_date datetime
 );

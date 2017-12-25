@@ -8,10 +8,10 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.internousdev.project1.dao.AlReadCheckDAO;
 import com.internousdev.project1.dao.AlReadDAO;
-import com.internousdev.project1.dto.SearchBookDTO;
+import com.internousdev.project1.dto.FriendReadDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class AlReadAction extends ActionSupport implements SessionAware{
+public class FrAlReadAction extends ActionSupport implements SessionAware{
 
 	private String loginUserId;
 	private String bookId;
@@ -25,20 +25,20 @@ public class AlReadAction extends ActionSupport implements SessionAware{
 
 	public String execute() throws Exception{
 
-		List<SearchBookDTO> bookList = (List<SearchBookDTO>) session.get("searchBookDTOList");
+		List<FriendReadDTO> bookList = (List<FriendReadDTO>) session.get("friendReadDTOList");
 
 
 		alReadDAO.alReadBook(
 				session.get("loginUserId").toString(),
-				session.get("checkId").toString(),
-				session.get("checkImg").toString(),
-				session.get("checkTitle").toString(),
-				session.get("checkAuthor").toString(),
-				session.get("checkPublishedDate").toString(),
-				session.get("checkDescription").toString());
+				session.get("frCheckId").toString(),
+				session.get("frCheckImg").toString(),
+				session.get("frCheckTitle").toString(),
+				session.get("frCheckAuthor").toString(),
+				session.get("frCheckPublishedDate").toString(),
+				session.get("frCheckDescription").toString());
 
 
-		alReadList.add(session.get("checkId").toString());
+		alReadList.add(session.get("frCheckId").toString());
 		session.put("alReadList", alReadList);
 
 		alReadDTO.addAll(alReadCheckDAO.getAlReadCheck(session.get("loginUserId").toString()));
@@ -46,7 +46,7 @@ public class AlReadAction extends ActionSupport implements SessionAware{
 		System.out.println(alReadDTO);
 
 
-		if(alReadDTO.contains(bookList.get((int)session.get("checkNum")).getBookId().toString())){
+		if(alReadDTO.contains(bookList.get((int)session.get("frCheckNum")).getBookId().toString())){
 			alReadCheckMessage = "on";
 
 		}else{

@@ -4,30 +4,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.internousdev.project1.dto.SearchFriendDTO;
 import com.internousdev.project1.util.DBConnector;
 
+public class SearchFriendDAO {
 
-public class AlReadCheckDAO {
 	DBConnector db = new DBConnector();
 	Connection con = db.getConnection();
-	List<String> alReadDTO = new ArrayList<String>();
+	SearchFriendDTO searchFriendDTO = new SearchFriendDTO();
 
-	public List<String> getAlReadCheck(String loginUserId){
+	String sql = "select * from login_user_transaction where login_id = ?";
 
-		String sql = "SELECT * FROM already_read WHERE user_id = ? ";
+	public SearchFriendDTO searchFriend(String loginUserId){
 
 		try{
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, loginUserId);
 			ResultSet rs = ps.executeQuery();
 
-			while(rs.next()){
-				alReadDTO.add(rs.getString("book_id"));
+			if(rs.next()){
+				searchFriendDTO.setLoginUserId(rs.getString("login_id"));
+				searchFriendDTO.setUserName(rs.getString("user_name"));
 			}
-
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -37,6 +36,6 @@ public class AlReadCheckDAO {
 			e.printStackTrace();
 		}
 
-		return alReadDTO;
+		return searchFriendDTO;
 	}
 }

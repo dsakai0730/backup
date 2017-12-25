@@ -1,6 +1,5 @@
 package com.internousdev.project1.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,15 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.internousdev.project1.dto.MyReadDTO;
+import com.internousdev.project1.dto.FriendReadDTO;
 import com.internousdev.project1.util.DBConnector;
 
-public class MyReadDAO {
+public class FriendReadDAO {
 	DBConnector db = new DBConnector();
 	Connection con = db.getConnection();
-	List<MyReadDTO> myReadDTOList = new ArrayList<MyReadDTO>();
+	List<FriendReadDTO> friendReadDTOList = new ArrayList<FriendReadDTO>();
 
-	public List<MyReadDTO> getMyRead(String loginUserId){
+	public List<FriendReadDTO> getFriendRead(String loginUserId){
 
 		String sql = "SELECT * FROM already_read WHERE user_id = ?";
 
@@ -26,14 +25,14 @@ public class MyReadDAO {
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
-				MyReadDTO dto = new MyReadDTO();
+				FriendReadDTO dto = new FriendReadDTO();
 				dto.setBookId(rs.getString("book_id"));
 				dto.setImg(rs.getString("book_img"));
 				dto.setTitle(rs.getString("book_title"));
 				dto.setAuthor(rs.getString("book_author"));
 				dto.setPublishedDate(rs.getString("book_published_date"));
 				dto.setDescription(rs.getString("book_description"));
-				myReadDTOList.add(dto);
+				friendReadDTOList.add(dto);
 
 			}
 		}catch(SQLException e){
@@ -45,8 +44,9 @@ public class MyReadDAO {
 			e.printStackTrace();
 		}
 
-		return myReadDTOList;
+		return friendReadDTOList;
 
 
 	}
 }
+

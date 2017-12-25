@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel = "stylesheet" type="text/css" href="./css/style.css">
-<title>MYPAGE</title>
+<title>FRIENDPAGE</title>
 </head>
 <body>
 	<header><a href='<s:url action="GoHomeAction" />'>FavBooks</a>
@@ -18,15 +18,23 @@
 	</header>
 	<div id="main">
 		<div id="content">
-			<p><s:property value="session.userName" />さんのマイページ</p>
+			<p><s:property value="session.searchFriendName" />さんのページ</p>
+			<s:if test="session.followCheck == 'off'">
+				<a href = '<s:url action = "FollowAction" />' >フォローする</a>
+			</s:if>
+			<s:if test="session.followCheck == 'on'">
+				<a href = '<s:url action = "FollowAction" />' >フォロー解除</a>
+			</s:if>
 		</div>
+
 		<br>
-		<p id="mypage-list"><s:property value="session.userName" />さんの読んだ！リスト</p>
-		<s:iterator value="session.myReadDTOList" status="st">
-					<s:form action="MyCheckAction">
+		<p id="mypage-list"><s:property value="session.searchFriendName" />さんの読んだ！リスト</p>
+		<br>
+		<s:iterator value="session.friendReadDTOList" status="sta">
+			<s:form action="MyCheckAction">
 						<table id="book">
 							<tbody>
-							<tr >
+							<tr>
 								<td id="book-img">
 									<img src="<s:property value="img" />" width="128">
 								</td>
@@ -38,12 +46,12 @@
 											<p>発刊日:&nbsp;&nbsp;<s:property value="publishedDate" /></p>
 											説明:<div id="des"><s:property value="description"/></div>
 									<br>
-									<a id="check-btn" href='<s:url action="MyCheckAction"><s:param name="myCheckNum" value="#st.index" /></s:url>' >check!</a>
+									<a id="check-btn" href='<s:url action="FrCheckAction"><s:param name="frCheckNum" value="#sta.index" /></s:url>' >check!</a>
 								</td>
 							</tr>
 							</tbody>
 						</table>
-					</s:form>
+			</s:form>
 		</s:iterator>
 		<footer>copyright daichi sakai</footer>
 	</div>

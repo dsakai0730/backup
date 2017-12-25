@@ -26,6 +26,7 @@ public class SearchBookAction extends ActionSupport implements SessionAware{
 	private String publishedDate;
 	private String description;
 	private String searchWord;
+	private String replacesSearchWord;
 	public Map<String, Object> session;
 	public List<SearchBookDTO> searchBookDTOList = new ArrayList<SearchBookDTO>();
 	private String bookErrorMessage ;
@@ -34,8 +35,13 @@ public class SearchBookAction extends ActionSupport implements SessionAware{
 	public String execute() throws IOException{
 		String ret = SUCCESS;
 
+		if(getSearchWord().contains(" ")){
+			replacesSearchWord = getSearchWord().replace(" ", "+");
+		}else{
+			replacesSearchWord = getSearchWord();
+		}
 
-		URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=" + getSearchWord());
+		URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=" + replacesSearchWord);
 		InputStream is = url.openStream();
 		InputStreamReader isr = new InputStreamReader(is, "UTF-8");
 		BufferedReader reader = new BufferedReader(isr);
@@ -46,48 +52,70 @@ public class SearchBookAction extends ActionSupport implements SessionAware{
 			JsonNode root = mapper.readTree(contents);
 
 
+			if(root.has("items")){
+				JsonNode items = root.get("items");
 
-			JsonNode items = root.get("items");
+				for(int i=0; i<items.size(); i++) {
+					SearchBookDTO dto = new SearchBookDTO();
+					bookId = root.get("items").get(i).get("id").asText();
+					title = root.get("items").get(i).get("volumeInfo").get("title").asText();
 
-			for(int i=0; i<items.size(); i++) {
-				SearchBookDTO dto = new SearchBookDTO();
-				bookId = root.get("items").get(i).get("id").asText();
-				title = root.get("items").get(i).get("volumeInfo").get("title").asText();
-				img = root.get("items").get(i).get("volumeInfo").get("imageLinks").get("smallThumbnail").asText();
-
-				JsonNode authors = root.get("items").get(i).get("volumeInfo").get("authors");
-
-				List<String> autli = new ArrayList<>();
-				for(int j=0; j<authors.size(); j++){
-					String aut = new String();
-					aut = authors.get(j).asText();
-					autli.add(aut);
+					if(root.get("items").get(i).get("volumeInfo").has("imageLinks")){
+						img = root.get("items").get(i).get("volumeInfo").get("imageLinks").get("smallThumbnail").asText();
+					}else{
+						img = "http://www.ekonail.com/wp-content/themes/ekonail.com/images/no_img.gif";
 					}
 
 
-				publishedDate = root.get("items").get(i).get("volumeInfo").get("publishedDate").asText();
-				description = root.get("items").get(i).get("volumeInfo").get("description").asText();
+					List<String> autli = new ArrayList<>();
+					if(root.get("items").get(i).get("volumeInfo").has("authors")){
+						JsonNode authors = root.get("items").get(i).get("volumeInfo").get("authors");
 
-				dto.setBookId(bookId);
-				dto.setTitle(title);
-				dto.setImg(img);
-				dto.setAuthorsList(autli);
-				dto.setPublishedDate(publishedDate);
-				dto.setDescription(description);
+						for(int j=0; j<authors.size(); j++){
+							String aut = new String();
+							aut = authors.get(j).asText();
+							autli.add(aut);
+							}
+					}else{
+						autli.add("著者情報がありません。");
+					}
 
-				searchBookDTOList.add(dto);
+
+					if(root.get("items").get(i).get("volumeInfo").has("publishedDate")){
+						publishedDate = root.get("items").get(i).get("volumeInfo").get("publishedDate").asText();
+					}else{
+						publishedDate = "出版日情報がありません。";
+					}
+
+					if(root.get("items").get(i).get("volumeInfo").get("description") != null){
+						description = root.get("items").get(i).get("volumeInfo").get("description").asText();
+					}else{
+						description = "説明がありません。";
+					}
+
+
+					dto.setBookId(bookId);
+					dto.setTitle(title);
+					dto.setImg(img);
+					dto.setAuthorsList(autli);
+					dto.setPublishedDate(publishedDate);
+					dto.setDescription(description);
+
+					searchBookDTOList.add(dto);
+				}
+				session.put("searchBookDTOList", searchBookDTOList);
+
+			}else{
+				setBookErrorMessage("検索結果がありません");
 			}
-			session.put("searchBookDTOList", searchBookDTOList);
+
+
 
 
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 
-		if(is==null){
-			ret = ERROR;
-			setBookErrorMessage("検索結果がありません");
-		}
 		return ret;
 	}
 
@@ -160,6 +188,16 @@ public class SearchBookAction extends ActionSupport implements SessionAware{
 
 	public void setBookErrorMessage(String bookErrorMessage) {
 		this.bookErrorMessage = bookErrorMessage;
+	}
+
+
+
+	public String getReplacesSearchWord() {
+		return replacesSearchWord;
+	}
+
+	public void setReplacesSearchWord(String replacesSearchWord) {
+		this.replacesSearchWord = replacesSearchWord;
 	}
 
 	@Override
